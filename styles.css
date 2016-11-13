@@ -1,0 +1,43 @@
+body {
+	font-family: helvetica, sans-serif;
+	color: grey;
+}
+
+.title {
+	text-align: center;
+}
+
+form {
+	text-align: center;
+}
+
+.input-container {
+	display: flex;
+	width: 500px;
+	min-height: 600px;
+	border: 1px solid grey;
+	margin: 0 auto;
+}
+
+.hidden {
+	display: none;
+}
+
+.letters-container {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid green;
+}
+
+.adjectives-container {
+	border: 1px solid blue;
+}
+
+.letter {
+	font-size: 5em;
+}
+
+.adjective {
+	font-size: 3em;
+	padding: 18px 0;
+}
