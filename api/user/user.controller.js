@@ -17,12 +17,14 @@ methods.createLetterList = (name) => {
 	return letterList;
 };
 
-methods.updateWord = (letterObj) => {
+methods.updateWords = (letterArray) => {
 	for (var i = 0; i < letterList.length; i++) {
-		if (letterList[i].position == letterObj.position) {
-			letterList[i].word = letterObj.word;
+		if (letterList[i].position == letterArray[i].position) {
+			letterList[i].word = letterArray[i].word;
 		}
 	}
+	console.log('in updateWords, letterList: ', letterList);
+	console.log('in updateWords, letterArray: ', letterArray);
 	return letterList;
 }
 
@@ -39,10 +41,12 @@ let Controller = {
 	},
 	postLetterList: (req, res) => {
 		const listWithName = methods.createLetterList(req.params.name);
+		console.log('list with name: ', listWithName);
 		res.status(200).json(listWithName);
 	},
 	putUpdatedList: (req, res) => {
-		const updatedList = methods.updateWord(req.body);
+		console.log('putUpdatedList req.body.body: ', req.body.body);
+		const updatedList = methods.updateWords(req.body.body);
 		res.status(200).json(updatedList);
 	},
 	deleteList: (req, res) => {

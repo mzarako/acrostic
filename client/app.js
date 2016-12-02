@@ -1,24 +1,40 @@
+
 $(document).ready(function() {
 
 	var name = "LORENZO";
-	// function which runs with the name Lorenzo
-	// sets off pop-up form (new)
+	var letterList = [];
 
 	$('.custom-poem').on('click', function(e) {
 		e.preventDefault();
+		// newPoemSetup(name);	
 		name = $('input').val();
 		$('form').addClass('hidden');
-		writeCustomPoem(name);
+		writeNewPoem(name);
+	});
+
+	$('.random-poem').on('click', function(e) {
+		e.preventDefault();
+		// newPoemSetup(name);
+		name = $('input').val();
+		$('form').addClass('hidden');
+		writeRandomPoem(name);
+	});
+
+	$('.new-poem').on('click', function(e) {
+		e.preventDefault();
+		$('form').removeClass('hidden');
+	});
+
+	$('.send-poem').on('click', function(e) {
+		e.preventDefault();
+		console.log('letterList: ', letterList);
+		updateEntirePoem(name);
 	});
 
 	$('.adjectives-container').on('submit', '.adjective-container', function(e) {
 		e.preventDefault();
-		var id = $(this).find('input').attr('id');
-		var word = $(this).find('input').val();
-		updateWord(name, id, word);
 	});
 
-});
 
 
 // appends letters in name to html
@@ -33,67 +49,95 @@ function getInputLetters(name) {
 }
 
 
-////////////////////////////////////////////////////////////////////////////
+// clean up HTML for new poem 
+function newPoemSetup(name) {
+	$('.letters-container').empty();
+	$('.adjectives-container').empty();
+	$.ajax({
+		method: 'DELETE',
+		url: '/user/'
+	}).done(function(res) {
+		letterList = res;
+		console.log('newPoemSetup letterList: ', letterList);
+	});
+} 
 
-// * User Customization * // 
-
-////////////////////////////////////////////////////////////////////////////
-
-
-// creates blank poem
-function writeCustomPoem(name) {
-	var name = getInputLetters(name);
-	var req = {
-		method: 'POST',
-		url: '/user/' + name,
-		body: {
-			'name': name
-		}
-	}
-	var ajax = $.ajax(req);
-}
-
-
-// updates word with user input
-function updateWord(name, id, word) {
-	id = id.charAt(4);
+// saves final version of poem for sendoff
+function updateEntirePoem(name) {
+	console.log('updateEntirePoem letterList at start: ', letterList);
+	for (var i = 0; i < letterList.length; i++) {
+				var id = "#pos-" + i;
+				var word = $(id).find('input').val();
+				letterList[i].word = word;
+			}
 	var req = {
 		method: 'PUT',
 		url: '/user/' + name,
-		data: {
-			'position': id,
-			'word': word
-		}
+		data: {body: letterList}
 	}
-	var ajax = $.ajax(req);
+	$.ajax(req)
+	.done(function(res) {
+		letterList = res;
+		console.log('updateEntirePoem letterList: ', letterList);
+	})	
 }
 
-// function getDictionary(letter) {
+// creates blank poem
+function writeNewPoem(name) {
+	name = getInputLetters(name);
+	var req = {
+		method: 'POST',
+		url: '/user/' + name,
+		data: {
+			'name': name
+		}
+	}
+	$.ajax(req)
+	.done(function(res) {
+		letterList = res;
+		console.log('writeNewPoem letterList: ', letterList);
+	})
+	.fail(function(err) {
+		console.log(err);
+	});
+}
 
-// 	var dictionary = {
-// 		A: ['A-OK', 'accomplished', 'ace', 'adorable', 'admirable', 'adored', 'adventurous', 'ageless', 'agreeable', 'all heart', 'alluring', 'altruistic', 'amazing', 'ambitious', 'amiable', 'amicable', 'appreciated', 'amusing', 'angelic', 'aphrodisiacal', 'appealing', 'ardent', 'articulate', 'artistic', 'assertive', 'assured', 'astonishing', 'astute', 'athletic', 'attentive', 'attractive', 'atypical', 'aware', 'awesome'],
-// 		B: ['balanced', 'beaming', 'beautiful', 'bedazzling', 'beloved', 'benevolent', 'best', 'beyond compare', 'blessed', 'blissful', 'bodacious', 'boisterous', 'bold', 'brainy', 'brave', 'brawny', 'breathtaking', 'bright', 'brilliant', 'brotherly', 'buff'],
-// 		C: ['calm', 'capable', 'captivating', 'carefree', 'careful', 'caring', 'celebrated', 'champion', 'charismatic', 'charming', 'cheerful', 'cherished', 'chic', 'chief', 'clairvoyant', 'classic', 'clear-eyed', 'clearheaded', 'clever', 'comforting', 'comic', 'communicative', 'compassionate', 'complete', 'composed', 'conscientious', 'considerate', 'contemplative', 'content', 'cool', 'cooperative', 'coordinated', 'cordial', 'cosmic', 'courageous', 'courteous', 'creative', 'cuddly', 'curious', 'cute']
-// 	}
+// creates blank poem, adds random words to poem
+function writeRandomPoem(name) {
+	name = getInputLetters(name);
+	var req = {
+		method: 'POST',
+		url: '/user/' + name,
+		data: {
+			'name': name
+		}
+	}
+	$.ajax(req)
+	.done(function(res) {
+		console.log('after first done res: ', res);
+		$.ajax({
+		method: 'PUT',
+		url: '/words/random/' + name,
+		data: {'body': res},
+		})
+		.done(function(response) {
+			letterList = response;
+			console.log('writeRandomPoem middle letterList: ', letterList);
+			console.log('response: ', response);
+			for (var i = 0; i < letterList.length; i++) {
+				var updateWord = letterList[i].word;
+				var id = "#pos-" + i;
+				$(id).val(updateWord);
+			}
+			console.log('writeRandomPoem inner letterList: ', letterList);
+		})
+		.fail(function(err) {
+			console.log(err);
+		});
+	})
+	.fail(function(err) {
+		console.log(err);
+	});
+}
 
-// 	var wordsByLetter = dictionary[letter];
-// 	return wordsByLetter;
-// }
-
-// function getRandomWord(letter) {
-// 	var wordsByLetter = getDictionary(letter);
-// 	var randomNumber = Math.floor((Math.random() * (wordsByLetter.length-1)))
-// 	var newWord = wordsByLetter[randomNumber];
-// 	newWord = newWord.substring(1, newWord.length);
-// 	return newWord;
-// }
-
-
-////////////////////////////////////////////////////////////////////////////
-
-// * Dictionary Randomization * // 
-
-////////////////////////////////////////////////////////////////////////////
-
-
-
+});
