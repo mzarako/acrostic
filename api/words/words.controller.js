@@ -34,7 +34,9 @@ let Controller = {
 		res.status(200).json(allWords);
 	},
 	getWordsByLetter: (req, res) => {
+		console.log('the req came in: ', req.params.letter);
 		const wordsByLetter = methods.findWordsByLetter(req.params.letter);
+		console.log(wordsByLetter);
 		res.status(200).json(wordsByLetter); 
 	},
 	getRandomWordByLetter: (req, res) => {

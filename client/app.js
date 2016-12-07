@@ -6,36 +6,62 @@ $(document).ready(function() {
 
 	$('.custom-poem').on('click', function(e) {
 		e.preventDefault();
-		// newPoemSetup(name);	
-		name = $('input').val();
+		newPoemSetup(name);	
+		name = $('.name').val();
 		$('form').addClass('hidden');
 		writeNewPoem(name);
 	});
 
 	$('.random-poem').on('click', function(e) {
 		e.preventDefault();
-		// newPoemSetup(name);
-		name = $('input').val();
+		newPoemSetup(name);
+		name = $('.name').val();
 		$('form').addClass('hidden');
 		writeRandomPoem(name);
 	});
 
 	$('.new-poem').on('click', function(e) {
 		e.preventDefault();
-		$('form').removeClass('hidden');
+		$('.name-form').removeClass('hidden');
 	});
 
-	$('.send-poem').on('click', function(e) {
+	$('.view-dictionary').on('click', function(e) {
 		e.preventDefault();
-		console.log('letterList: ', letterList);
-		updateEntirePoem(name);
+		$('.dictionary-container').toggleClass('hidden').empty().append('<form class="search"><input class="letter-search" type="text" value="a, b, c..."><input type="submit" value="search"></form>');
 	});
+	// $('.send-poem').on('click', function(e) {
+	// 	e.preventDefault();
+	// 	console.log('MEOW!!: ', letterList);
+	// 	updateEntirePoem(name);
+	// });
 
 	$('.adjectives-container').on('submit', '.adjective-container', function(e) {
 		e.preventDefault();
 	});
 
+	$('.dictionary-container').on('submit', '.search', function(e) {
+		e.preventDefault();
+		console.log('search was clicked');
+		var letter = $('.letter-search').val();
+		$('.dictionary-container').empty();
+		getDictionaryByLetter(letter);
+	});
 
+// gets words to display by searched letter, then appends word list
+function getDictionaryByLetter(letter) {
+	letter = letter.toUpperCase();
+	console.log('letter: ', letter);
+	$.ajax({
+		method: 'GET',
+		url: '/words/' + letter
+	}).done(function(res) {
+		var currentDictionary = res;
+		$('.dictionary-container').append('<div class="current-dictionary"></div>');
+		var wordList = currentDictionary.join(',  ');
+		$('.current-dictionary').append('<p class="word-list">' + wordList + '</p>');
+		console.log(currentDictionary);
+	});
+}
 
 // appends letters in name to html
 function getInputLetters(name) {
@@ -63,24 +89,24 @@ function newPoemSetup(name) {
 } 
 
 // saves final version of poem for sendoff
-function updateEntirePoem(name) {
-	console.log('updateEntirePoem letterList at start: ', letterList);
-	for (var i = 0; i < letterList.length; i++) {
-				var id = "#pos-" + i;
-				var word = $(id).find('input').val();
-				letterList[i].word = word;
-			}
-	var req = {
-		method: 'PUT',
-		url: '/user/' + name,
-		data: {body: letterList}
-	}
-	$.ajax(req)
-	.done(function(res) {
-		letterList = res;
-		console.log('updateEntirePoem letterList: ', letterList);
-	})	
-}
+// function updateEntirePoem(name) {
+// 	console.log('updateEntirePoem letterList at start: ', letterList);
+// 	for (var i = 0; i < letterList.length; i++) {
+// 				var id = "#pos-" + i;
+// 				var word = $(id).val();
+// 				letterList[i].word = word;
+// 			}
+// 	var req = {
+// 		method: 'PUT',
+// 		url: '/user/' + name,
+// 		data: {body: letterList}
+// 	}
+// 	$.ajax(req)
+// 	.done(function(res) {
+// 		letterList = res;
+// 		console.log('updateEntirePoem letterList: ', letterList);
+// 	})	
+// }
 
 // creates blank poem
 function writeNewPoem(name) {

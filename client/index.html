@@ -2,17 +2,22 @@
 <html>
 <head>
 	<title></title>
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Pacifico|Sofia" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 	<header>
 		<h1 class="title">Poem Me Happy</h1>
-		<button class="new-poem">new</button>
-		<button class="send-poem">send</button>
 	</header>
-	<form>
-		Enter a name:<br>
-		<input type="text" name="firstname"><br>
+	<div class="options">
+		<button class="new-poem">new</button>
+		<button class="view-dictionary">ABC</button>
+		<div class="dictionary-container hidden"></div>
+		<!-- <button class="send-poem">send</button> -->
+	</div>
+	<form class="name-form">
+		<p class="enter-name">Enter a name:</p>
+		<input class="name" type="text" name="firstname"><br>
 		<input class="custom-poem" type="button" value="Custom poem"><input class="random-poem" type="button" value="Random poem">
 	</form>
 	<div class="input-container">
