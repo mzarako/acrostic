@@ -1,10 +1,11 @@
 body {
 	
 	/*font-family: 'Sofia', cursive;*/
-	font-family: 'Pacifico', cursive;
+	font-family: 'Delius Swash Caps', cursive;
 	/*color: grey;*/
 	background-image: url(../fern.png);
 	background-size: 8%;
+	box-sizing: border-box;
 }
 
 header {
@@ -13,17 +14,66 @@ header {
 	font-size: 30px;
 }
 
-button {
-	font-family: 'Pacifico', cursive;
-	font-size: 16px;
+.new-poem, .view-dictionary, .search, .letter-search {
+	padding: 15px;
 }
 
-.options {
+.search-div, .dictionary-input {
+	display: inline-block;
+}
+
+.dictionary-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.word-list {
+	line-height: 1.5;
+}
+
+.dictionary-container {
+}
+
+img {
+	cursor: pointer;
+}
+
+.options, .letter-search {
 	text-align: center;
+}
+
+.letter-search {
+	width: 50px;
+	border: 1px solid pink;
+}
+
+input {
+	-webkit-appearance: none;
+	border-style: none;
+	border: none;
+	border-bottom: 1px solid black;
 }
 
 form {
 	text-align: center;
+}
+
+.current-dictionary {
+	text-align: left;
+}
+
+.name-form {
+	padding: 20px;
+}
+
+.enter-name {
+	display: inline-block;
+	font-size: 18px;
+}
+
+.name {
+	border-bottom: solid 1p black;
 }
 
 .input-container {
@@ -32,10 +82,6 @@ form {
 	min-height: 600px;
 	border: 1px solid grey;
 	margin: 0 auto;
-}
-
-.dictionary-container {
-
 }
 
 .hidden {
@@ -53,22 +99,24 @@ form {
 	flex-direction: column;
 	border: 1px solid green;
 	display: inline-block;
-	font-family: 'Cabin Sketch', cursive;
+	font-family: 'Delius', cursive;
 }
 
 .adjectives-container input{
 	border: 1px solid blue;
 	display: inline-block;
-	font-family: 'Cabin Sketch', cursive;
+	font-family: 'Delius Swash Caps', cursive;
+	min-width: 1px;
 }
 
 .letter {
 	font-size: 5em;
+	height: 95px;
 }
 
 #pos-0, #pos-1, #pos-2, #pos-3, #pos-4, #pos-5, #pos-6, #pos-7, #pos-8, #pos-9, #pos-10, #pos-11, #pos-12, #pos-13, #pos-14, #pos-15, #pos-16, #pos-17, #pos-18, #pos-19, #pos-20 {
 	font-size: 5em;
-	width: 400px;
-	height: 90px;
+	min-width: 400px;
+	min-height: 90px;
 	border: 1px solid orange;
 }

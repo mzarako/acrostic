@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title></title>
-	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Pacifico|Sofia" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Pacifico|Sofia|Delius|Delius+Swash+Caps|Josefin+Sans:300,400,600,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
@@ -10,15 +11,15 @@
 		<h1 class="title">Poem Me Happy</h1>
 	</header>
 	<div class="options">
-		<button class="new-poem">new</button>
-		<button class="view-dictionary">ABC</button>
+		<img class="new-poem" src="start-over.png">
+		<img class="view-dictionary" src="dictionary1.png">
 		<div class="dictionary-container hidden"></div>
 		<!-- <button class="send-poem">send</button> -->
 	</div>
 	<form class="name-form">
-		<p class="enter-name">Enter a name:</p>
-		<input class="name" type="text" name="firstname"><br>
-		<input class="custom-poem" type="button" value="Custom poem"><input class="random-poem" type="button" value="Random poem">
+		<p class="enter-name">Write the name of someone you admire</p>
+		<input class="name" type="text" placeholder="Klaudia"><br>
+		<img class="custom-poem" src="custom.png"><img class="random-poem" src="random.png">
 	</form>
 	<div class="input-container">
 		<div class="letters-container"></div>
