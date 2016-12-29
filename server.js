@@ -29,5 +29,5 @@ app.get('*', function(req, res){
 // });
 
 app.listen(process.env.PORT || 8080, () => {
-	console.log(`Express server listening on ${config.express_port}`);
+	console.log('Express server listening on heroku');
 });
