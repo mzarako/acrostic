@@ -15,7 +15,6 @@ methods.findWordsByLetter = (letter) => {
 }
 
 methods.findRandomWord = (letterArray) => {
-	console.log('i am in findRandom');
 	for (var i = 0; i < letterArray.length; i++) {
 		var letter = letterArray[i].letter;
 		var letteredWords = methods.findWordsByLetter(letter);
@@ -24,7 +23,6 @@ methods.findRandomWord = (letterArray) => {
 		word = word.substring(1, word.length);
 		letterArray[i].word = word;
 	}
-	console.log('findRandom returns: ', letterArray);
 	return letterArray;
 }
 
@@ -34,13 +32,10 @@ let Controller = {
 		res.status(200).json(allWords);
 	},
 	getWordsByLetter: (req, res) => {
-		console.log('the req came in: ', req.params.letter);
 		const wordsByLetter = methods.findWordsByLetter(req.params.letter);
-		console.log(wordsByLetter);
-		res.status(200).json(wordsByLetter); 
+		res.status(200).json(wordsByLetter);
 	},
 	getRandomWordByLetter: (req, res) => {
-		console.log('i am in getRandom, req.body.body: ', req.body.body);
 		const randomWords = methods.findRandomWord(req.body.body);
 		res.status(200).json(randomWords);
 	}

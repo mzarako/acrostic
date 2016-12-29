@@ -3,28 +3,36 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
-	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Pacifico|Sofia|Delius|Delius+Swash+Caps|Josefin+Sans:300,400,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa|Raleway|Oxygen+Mono|Cabin+Sketch|Pacifico|Sofia|Delius|Delius+Swash+Caps|Josefin+Sans:300,400,600,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 	<header>
-		<h1 class="title">Poem Me Happy</h1>
+		<h1 class="title">Poem Me <span class="color-change">Happy</span></h1>
+		<div class="screenshot-div">
+			<p class="screenshot-text">SCREENSHOT ME &<br>SEND TO A FRIEND</p>
+		</div>
 	</header>
 	<div class="options">
-		<img class="new-poem" src="start-over.png">
-		<img class="view-dictionary" src="dictionary1.png">
+		<div class="new-poem"><h3>New Poem</h3></div>
+		<div class="view-dictionary"><h3>Dictionary</h3></div>
 		<div class="dictionary-container hidden"></div>
 		<!-- <button class="send-poem">send</button> -->
 	</div>
 	<form class="name-form">
 		<p class="enter-name">Write the name of someone you admire</p>
-		<input class="name" type="text" placeholder="Klaudia"><br>
-		<img class="custom-poem" src="custom.png"><img class="random-poem" src="random.png">
+		<input class="name" type="text">
+		<div class="random-poem"><h4>Random</h4></div>
+		<div class="custom-poem"><h4>Custom</h4></div>
 	</form>
+	<div class="divider-short" id="first-divider"></div>
+	<div class="divider-long"></div>
 	<div class="input-container">
 		<div class="letters-container"></div>
 		<div class="adjectives-container"></div>
 	</div>
+	<div class="divider-long"></div>
+	<div class="divider-short"></div>
 	<script src="/libs/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 </body>

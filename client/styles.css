@@ -1,25 +1,103 @@
+html {
+	/*background-color: #ffffff;
+	opacity: 0.5;
+	filter: alpha(opacity=50);*/
+	background-image: url(../images/ferns-01.png);
+	background-size: 30%;
+	height: 100%;
+	width: 100%;
+}
+
 body {
-	
 	/*font-family: 'Sofia', cursive;*/
 	font-family: 'Delius Swash Caps', cursive;
 	/*color: grey;*/
-	background-image: url(../fern.png);
-	background-size: 8%;
+
 	box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0 auto;
+	padding: 20px;
+	min-height: 100%;
+	width: 100%;
+	color: #b27866;
+
 }
+
+/*main {
+	background: rgba(255, 255, 255, 0.5);
+	box-shadow: 1px 2px 3px rgba(255,255,255,0.5);
+	max-width: 90%;
+	margin: 0 auto;
+}*/
 
 header {
 	text-align: center;
-	margin: 20px 0;
-	font-size: 30px;
+	margin: 20px 0 0 0;
+	font-size: 40px;
+	height: 160px;
+	display: flex;
+	flex-direction: column;
 }
 
-.new-poem, .view-dictionary, .search, .letter-search {
-	padding: 15px;
+.screenshot-div {
+	-ms-transform: rotate(-30deg); /* IE 9 */
+		-webkit-transform: rotate(-30deg); /* Safari */
+		transform: rotate(-30deg);
+	position: relative;
+	width: 500px;
+	top: -180px;
+	right: 80px;
+	font-family: 'Comfortaa', monospace;
+	font-size: 14px;
+	letter-spacing: 2px;
+	line-height: 1.4;
+	padding-left: 10px;
+	/*background: rgba(255, 255, 255, 0.7);
+	box-shadow: 1px 2px 3px rgba(255,255,255,0.7);*/
+	border-radius: 20px;
+	border: 1px solid #eaefdc;
+	background-color: #eaefdc;
+	color: #cca599;
+}
+/* #eaefdc #dbe2c6 */
+
+.screenshot-text {
+	text-align: center;
 }
 
-.search-div, .dictionary-input {
+.new-poem, .view-dictionary, .custom-poem, .random-poem, .search {
+	margin: 10px 15px;
+	font-family: 'Delius Swash Caps', cursive;
 	display: inline-block;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.7);
+	box-shadow: 1px 2px 3px rgba(255,255,255,0.7);
+	cursor: pointer;
+	letter-spacing: 1.1px;
+}
+
+.new-poem, .view-dictionary {
+	padding: 5px 15px;
+	border-left: 3px solid #cca599;
+	border-right: 3px solid #cca599;
+	line-height: 0.6;
+}
+
+.custom-poem, .random-poem, .search {
+	line-height: 0.3;
+	padding: 0 10px;
+	margin: 10px;
+	border-left: 2px solid #cca599;
+	border-right: 2px solid #cca599;
+}
+
+.random-poem {
+	margin-right: 0;
+}
+
+.dictionary-input {
+	display: inline-block;
+
 }
 
 .dictionary-form {
@@ -29,30 +107,68 @@ header {
 }
 
 .word-list {
-	line-height: 1.5;
+	line-height: 1.7;
+	letter-spacing: 1.2px;
+	word-spacing: 6px;
+	padding: 20px;
+	margin: 0 auto;
 }
 
 .dictionary-container {
+	margin: 40px 0;
+	font-family: 'Comfortaa', sans-serif;
 }
 
 img {
 	cursor: pointer;
 }
 
-.options, .letter-search {
+.options {
+	margin: 30px 0 20px 0;
 	text-align: center;
 }
 
 .letter-search {
-	width: 50px;
-	border: 1px solid pink;
+	width: 80px;
+	margin-right: 20px;
+}
+
+.name {
+	margin: 0 20px 13px 10px;
+	width: 130px;
+}
+
+.name, .letter-search {
+	padding: 5px;
+	font-family: 'Comfortaa', sans-serif;
+	text-align: center;
+	font-size: 16px;
+	border-bottom: 1px solid #c39688;
 }
 
 input {
 	-webkit-appearance: none;
 	border-style: none;
 	border: none;
-	border-bottom: 1px solid black;
+	background: none;
+	border-bottom: 1px solid #c39688;
+}
+
+input, select, textarea{
+    color: #c39688;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #c39688;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #c39688;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #c39688;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #c39688;
 }
 
 form {
@@ -61,10 +177,20 @@ form {
 
 .current-dictionary {
 	text-align: left;
+	padding: 10px;
+	background-color: #eaefdc;
+	color: #cca599;
+	/*background: rgba(255, 255, 255, 0.4);
+	box-shadow: 1px 2px 3px rgba(255,255,255,0.4);*/
+	max-width: 800px;
+	margin: 0 auto;
+	border: 1px solid #eaefdc;
+	border-radius: 10px;
 }
 
 .name-form {
-	padding: 20px;
+	margin: 40px 0;
+	font-family: 'Comfortaa', sans-serif;
 }
 
 .enter-name {
@@ -72,51 +198,76 @@ form {
 	font-size: 18px;
 }
 
-.name {
-	border-bottom: solid 1p black;
-}
-
 .input-container {
-	display: flex;
-	width: 500px;
-	min-height: 600px;
-	border: 1px solid grey;
-	margin: 0 auto;
+	margin: 40px 0 20px 0;
+	text-align: center;
 }
 
 .hidden {
 	display: none;
 }
 
-.current-dictionary {
-	border: 1px solid red;
-	max-width: 500px;
-	margin: 0 auto;
-}
-
 .letters-container {
-	display: flex;
-	flex-direction: column;
-	border: 1px solid green;
+	/*display: flex;
+	flex-direction: column;*/
+	/*border: 1px solid green;*/
 	display: inline-block;
-	font-family: 'Delius', cursive;
+	font-family: 'Comfortaa', cursive;
+	margin-left: 160px;
+	color: #b27866;
+	/*background: rgba(255, 255, 255, 0.4);
+	box-shadow: 1px 2px 3px rgba(255,255,255,0.4);*/
 }
 
-.adjectives-container input{
-	border: 1px solid blue;
+.adjectives-container, .adjectives-container input {
+	/*border: 1px solid blue;*/
 	display: inline-block;
 	font-family: 'Delius Swash Caps', cursive;
-	min-width: 1px;
+	border: none;
+	color: #c39688;
+	/*background: rgba(255, 255, 255, 0.4);
+	box-shadow: 1px 2px 3px rgba(255,255,255,0.4);
+	border-radius: 20px;*/
 }
 
 .letter {
-	font-size: 5em;
+	font-size: 4em;
 	height: 95px;
+	padding: 0 15px;
 }
 
 #pos-0, #pos-1, #pos-2, #pos-3, #pos-4, #pos-5, #pos-6, #pos-7, #pos-8, #pos-9, #pos-10, #pos-11, #pos-12, #pos-13, #pos-14, #pos-15, #pos-16, #pos-17, #pos-18, #pos-19, #pos-20 {
-	font-size: 5em;
-	min-width: 400px;
-	min-height: 90px;
-	border: 1px solid orange;
+	font-size: 2.2em;
+	/*max-width: 300px;*/
+	height: 93px;
+	/*border: 1px solid orange;*/
+}
+
+.color-change {
+	color: #c39688;
+}
+
+.green {
+	border-left: 5px solid #cca599;
+	border-right: 5px solid #cca599;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.divider-long, .divider-short {
+	height: 5px;
+	width: 600px;
+	margin: 15px auto;
+	background-color: #cca599;
+	border-radius: 10px;
+}
+
+.divider-short {
+	width: 500px;
+}
+
+#first-divider {
+	margin-top: 65px;
 }

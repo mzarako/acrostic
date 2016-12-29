@@ -8,8 +8,6 @@ router.route('/:letter')
 	.get(controller.getWordsByLetter);
 
 router.route('/random/:name')
-	.put(controller.getRandomWordByLetter);	
+	.put(controller.getRandomWordByLetter);
 
-module.exports = router;		
-
-
+module.exports = router;

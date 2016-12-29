@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-	var name = "gandalf";
+	var name = "remus";
 	var letterList = [];
 
 	$('.name-form').addClass('hidden');
@@ -11,15 +11,28 @@ $(document).ready(function() {
 
 	$('.custom-poem').on('click', function(e) {
 		e.preventDefault();
-		newPoemSetup();	
-		name = $('.name').val();
-		$('.name-form').addClass('hidden');
-		writeNewPoem(name);
+		name = $('.name').val().toLowerCase();
+		$('.error-letter').remove();
+		if (testNameInput(name)) {
+			$('.new-poem').toggleClass('green');
+			newPoemSetup();
+			$('.name-form').addClass('hidden');
+			writeNewPoem(name);
+		}
+		else {
+			$('.name-form').append('<p class="error-letter">Please enter a valid name</p>');
+		}
 	});
 
 	$('.random-poem').on('click', function(e) {
 		e.preventDefault();
-		randomPoemSubmit();
+		$('.error-letter').remove();
+		if (testNameInput(name)) {
+			randomPoemSubmit();
+		}
+		else {
+			$('.name-form').append('<p class="error-letter">Please enter a valid name</p>');
+		}
 	});
 
 	$('.name-form').submit(function(e) {
@@ -29,12 +42,14 @@ $(document).ready(function() {
 
 	$('.new-poem').on('click', function(e) {
 		e.preventDefault();
+		$('.new-poem').toggleClass('green');
 		$('.name-form').toggleClass('hidden');
 	});
 
 	$('.view-dictionary').on('click', function(e) {
 		e.preventDefault();
-		$('.dictionary-container').toggleClass('hidden').empty().append('<div class="dictionary-form"><div class="dictionary-input"><input class="letter-search" type="text" placeholder="a, b, c..."></div><div class="search-div"><img class="search" src="search.png"></div></div>');
+		$('.view-dictionary').toggleClass('green');
+		$('.dictionary-container').toggleClass('hidden').empty().append('<div class="dictionary-form"><div class="dictionary-input"><input class="letter-search" type="text" placeholder="a, b, c..."></div><div class="search"><h4>Search</h4></div></div>');
 	});
 	// $('.send-poem').on('click', function(e) {
 	// 	e.preventDefault();
@@ -53,31 +68,39 @@ $(document).ready(function() {
 
 	$('.dictionary-container').on('keypress', '.letter-search', function(e) {
         if(e.which == 13){
-        	console.log('inside keypress');
             dictionarySetUp();
         }
     });
 
 function randomPoemSubmit() {
-	newPoemSetup();
-	name = $('.name').val();
-	$('.name-form').addClass('hidden');
-	writeRandomPoem(name);
+	$('.error-letter').remove();
+	name = $('.name').val().toLowerCase();
+	if (testNameInput(name)) {
+		$('.new-poem').toggleClass('green');
+		newPoemSetup();
+		$('.name-form').addClass('hidden');
+		writeRandomPoem(name);
+	}
+	else {
+		$('.name-form').append('<p class="error-letter">Please enter a valid name</p>');
+	}
 }
 
 function dictionarySetUp() {
-	console.log('search was clicked');
-	var letter = $('.letter-search').val();
+	var letter = $('.letter-search').val().toLowerCase();
 	$('.error-letter').remove();
 	$('.current-dictionary').remove();
 	$('.word-list').remove();
-	console.log(testLetterInput(letter));
 	if (!testLetterInput(letter)) {
 		$('.dictionary-container').append('<p class="error-letter">Please enter a valid letter.</p>');
 	}
 	else {
 		getDictionaryByLetter(letter);
 	}
+}
+
+function testNameInput(name) {
+	return name.split('').every( letter => testLetterInput(letter) || letter === ' ');
 }
 
 function testLetterInput(letter) {
@@ -91,7 +114,6 @@ function testLetterInput(letter) {
 // gets words to display by searched letter, then appends word list
 function getDictionaryByLetter(letter) {
 	letter = letter.toUpperCase();
-	console.log('letter: ', letter);
 	$.ajax({
 		method: 'GET',
 		url: '/words/' + letter
@@ -100,7 +122,6 @@ function getDictionaryByLetter(letter) {
 		$('.dictionary-container').append('<div class="current-dictionary"></div>');
 		var wordList = currentDictionary.join(',  ');
 		$('.current-dictionary').append('<p class="word-list">' + wordList + '</p>');
-		console.log(currentDictionary);
 	}).fail(function(err) {
 		console.log(err);
 	});
@@ -112,13 +133,13 @@ function getInputLetters(name) {
 	for (var i = 0; i < name.length; i++) {
 		var letter = name.charAt(i);
 		$('.letters-container').append('<div class="letter">' + letter + '</div>');
-		$('.adjectives-container').append('<form class="adjective-container"> <input id="pos-' + i + '" type="text"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1"/> </form>');
+		$('.adjectives-container').append('<form class="adjective-container"> <input id="pos-' + i + '" type="text"></form>');
 	}
 	return name;
 }
 
 
-// clean up HTML for new poem 
+// clean up HTML for new poem
 function newPoemSetup() {
 	$('.letters-container').empty();
 	$('.adjectives-container').empty();
@@ -127,11 +148,10 @@ function newPoemSetup() {
 		url: '/user/'
 	}).done(function(res) {
 		letterList = res;
-		console.log('newPoemSetup letterList: ', letterList);
 	}).fail(function(err) {
 		console.log(err);
 	});
-} 
+}
 
 // saves final version of poem for sendoff
 // function updateEntirePoem(name) {
@@ -150,7 +170,7 @@ function newPoemSetup() {
 // 	.done(function(res) {
 // 		letterList = res;
 // 		console.log('updateEntirePoem letterList: ', letterList);
-// 	})	
+// 	})
 // }
 
 // creates blank poem
@@ -166,7 +186,6 @@ function writeNewPoem(name) {
 	$.ajax(req)
 	.done(function(res) {
 		letterList = res;
-		console.log('writeNewPoem letterList: ', letterList);
 	})
 	.fail(function(err) {
 		console.log(err);
@@ -185,7 +204,6 @@ function writeRandomPoem(name) {
 	}
 	$.ajax(req)
 	.done(function(res) {
-		console.log('after first done res: ', res);
 		$.ajax({
 		method: 'PUT',
 		url: '/words/random/' + name,
@@ -193,14 +211,11 @@ function writeRandomPoem(name) {
 		})
 		.done(function(response) {
 			letterList = response;
-			console.log('writeRandomPoem middle letterList: ', letterList);
-			console.log('response: ', response);
 			for (var i = 0; i < letterList.length; i++) {
 				var updateWord = letterList[i].word;
 				var id = "#pos-" + i;
 				$(id).val(updateWord);
 			}
-			console.log('writeRandomPoem inner letterList: ', letterList);
 		})
 		.fail(function(err) {
 			console.log(err);
